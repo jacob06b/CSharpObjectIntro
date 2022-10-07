@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,9 @@ namespace CSharpObjectIntro.Classes.Diary
 
         // Add a new method called check morning events
 
-
-
+        public int CheckMorningEvents(DateOnly date)
+        {
+            return diaryEvents.Count(diaryEvent => diaryEvent.Date == date && diaryEvent.IsMorning);
+        }
     }
 }

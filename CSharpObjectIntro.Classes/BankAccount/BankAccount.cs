@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace CSharpObjectIntro.Classes.BankAccount
 {
@@ -10,12 +11,59 @@ namespace CSharpObjectIntro.Classes.BankAccount
     {
         // As you complete each task make sure you test your code carefully
         // Choose some combination of manual testing, Debug.Assert and unit tests
+        public decimal Balance { get; private set; }
+        public DateTime OpeningDate { get; private set; }
+        public decimal Limit { get; private set; }
+        public decimal InitialBalance { get; private set; }
+        
 
         // Task One        
         // The bank account should have a balance property        
         // It should have a constructor that sets the initial balance (default zero) and the opening date (default today)
         // It should have methods to deposit and withdraw/make payments from the account. 
+        public BankAccount(decimal balance, DateTime date, decimal limit)
+        {
+            Balance = balance;
+            OpeningDate = date;
+            Limit = limit;
+            InitialBalance = balance;
+        }
 
+        
+        public decimal deposit(int amount)
+        {
+
+            if (amount<=Limit)
+            {
+                Balance = Balance + amount;
+                Console.WriteLine(Balance);
+            }
+            return Balance;
+
+        }
+        public decimal withdraw(int amount)
+        {
+            if (amount<=Limit)
+            {
+                Balance = Balance - amount;
+                Console.WriteLine(Balance);
+                
+            }
+            else
+            {
+                Console.WriteLine($"£{amount} exceeds your limit of £{Limit}");
+            }
+            return Balance;
+        }
+        public bool MakeTransaction(DateTime date, decimal amount, string category = "", string counterparty = "", string transactionType = "", string description = "")
+        {
+            var transaction = new AccountTransaction(DateOnly.FromDateTime(date), amount, category, counterparty, transactionType, description);
+            
+
+        }
+       
+        }
+        //}
         // Task Two
         // Give the option to set an overdraft limit
         // Do not allow a withdrawal/payment if the overdraft limit is exceeded. You could return false or throw an exception.
